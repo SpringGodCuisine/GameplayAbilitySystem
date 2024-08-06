@@ -3,7 +3,7 @@
 
 #include "UI/HUD/AuraHUD.h"
 
-#include "UI/WidgetController/OverlayWidgetController.h"
+#include "UI/WidgetController/OverlayWidgetController.h" 
 #include "UI/Widgets/AuraUserWidget.h"
 
 // 获取 Overlay Widget Controller，如果尚未创建则进行创建和初始化
@@ -15,7 +15,8 @@ UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetCont
 		OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);
 		// 设置 Widget Controller 的参数
 		OverlayWidgetController->SetWidgetControllerParams(WCParams);
-
+		// 设置回调函数Bind
+		OverlayWidgetController->BindCallbacksToDependencies();
 		// 返回创建的 Overlay Widget Controller
 		return OverlayWidgetController;
 	}
@@ -41,6 +42,7 @@ void AAuraHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyst
 
 	// 将 Widget Controller 赋给 Overlay Widget
 	OverlayWidget->SetWidgetController(WidgetController);
+	WidgetController->BroadcastInitialValues();
 
 	// 将 Widget 添加到视口中显示
 	Widget->AddToViewport();
