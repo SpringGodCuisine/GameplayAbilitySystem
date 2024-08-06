@@ -21,9 +21,13 @@ AAuraEnemy::AAuraEnemy()
 
 void AAuraEnemy::HighlightActor()
 {
+	// 设置敌人的网格（Mesh）启用自定义深度渲染
 	GetMesh()->SetRenderCustomDepth(true);
+	// 将敌人网格的自定义深度模板值设置为红色
 	GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
+	// 设置敌人武器启用自定义深度渲染
 	Weapon->SetRenderCustomDepth(true);
+	// 将敌人武器的自定义深度模板值设置为红色
 	Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 }
 

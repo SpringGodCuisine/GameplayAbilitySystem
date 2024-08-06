@@ -20,8 +20,11 @@ void AAuraPlayerController::PlayerTick(float DeltaTime)
 
 void AAuraPlayerController::CursorTrace()
 {
+	//声明一个FHitResult变量，用于存储光标下的命中结果
 	FHitResult CursorHit;
+	//获取光标下的命中结果，使用可见性通道碰撞，不忽略自身，结果储存在CursorHit中
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
+	//如果没有阻挡命中则返回
 	if(!CursorHit.bBlockingHit)return;
 
 	LastActor = ThisActor;
