@@ -7,6 +7,7 @@
 #include "AuraEffectActor.generated.h"
 
 class USphereComponent;
+class UGameplayEffect;
 
 UCLASS()
 class GAS_RPG_API AAuraEffectActor : public AActor
@@ -15,20 +16,20 @@ class GAS_RPG_API AAuraEffectActor : public AActor
 	
 public:	
 	AAuraEffectActor();
-
-	UFUNCTION()
-	virtual void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-
-	UFUNCTION()
-	virtual void EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 	
 protected:
 	virtual void BeginPlay() override;
 
-private:
-	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<USphereComponent> Sphere;
+	UFUNCTION(BlueprintCallable)
+	void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
+
+	//TSubclassOf
+	//类型安全：确保指向的类型是指定基类的子类。
+	//序列化支持：支持在 Unreal Engine 编辑器中选择和序列化子类类型。
+	//反射和动态实例化：可以在运行时通过类类型创建对象实例。
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
+	TSubclassOf<UGameplayEffect> InstanceGameplayEffectClass;
 	
-	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<UStaticMeshComponent> Mesh;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
+	TSubclassOf<UGameplayEffect> DurationGameplayEffectClass;
 };
