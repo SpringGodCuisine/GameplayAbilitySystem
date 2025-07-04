@@ -23,19 +23,23 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 
 	// 获取 Health 属性的变化委托，并将 HealthChanged 回调函数绑定到该委托
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		AuraAttributeSet->GetHealthAttribute()).AddUObject(this, &UOverlayWidgetController::HealthChanged);
+	AuraAttributeSet->GetHealthAttribute())
+	.AddUObject(this, &UOverlayWidgetController::HealthChanged);
 
 	// 获取 MaxHealth 属性的变化委托，并将 MaxHealthChanged 回调函数绑定到该委托
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-	AuraAttributeSet->GetMaxHealthAttribute()).AddUObject(this, &UOverlayWidgetController::MaxHealthChanged);
+	AuraAttributeSet->GetMaxHealthAttribute())
+	.AddUObject(this, &UOverlayWidgetController::MaxHealthChanged);
 
 	// 获取 Mana 属性的变化委托，并将 MaxHealthChanged 回调函数绑定到该委托
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-	AuraAttributeSet->GetManaAttribute()).AddUObject(this, &UOverlayWidgetController::ManaChanged);
+	AuraAttributeSet->GetManaAttribute())
+	.AddUObject(this, &UOverlayWidgetController::ManaChanged);
 
 	// 获取 MaxMana 属性的变化委托，并将 MaxHealthChanged 回调函数绑定到该委托
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-	AuraAttributeSet->GetMaxManaAttribute()).AddUObject(this, &UOverlayWidgetController::MaxManaChanged);
+	AuraAttributeSet->GetMaxManaAttribute())
+	.AddUObject(this, &UOverlayWidgetController::MaxManaChanged);
 }
 
 void UOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data) const

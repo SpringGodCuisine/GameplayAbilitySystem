@@ -6,7 +6,6 @@
 #include "GameFramework/Actor.h"
 #include "AuraEffectActor.generated.h"
 
-class USphereComponent;
 class UGameplayEffect;
 
 UCLASS()
