@@ -4,6 +4,7 @@
 #include "Character/AuraCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/AuraPlayerController.h"
 #include "Player/AuraPlayerState.h"
@@ -53,6 +54,8 @@ void AAuraCharacter::InitAbilityActorInfo()
 	check(AuraPlayerState);
 	// 初始化 Ability System Component，将其与 AuraPlayerState 和当前对象（this）关联
 	AuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(AuraPlayerState, this);
+
+	Cast<UAuraAbilitySystemComponent>(AuraPlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet();
 	// 将 Ability System Component 指向 AuraPlayerState 的 Ability System Component
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
 	// 将 Attribute Set 指向 AuraPlayerState 的 Attribute Set

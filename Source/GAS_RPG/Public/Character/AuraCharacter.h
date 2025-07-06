@@ -20,5 +20,5 @@ public:
 	//用于网络复制的一个回调函数，这个函数会在PlayerState变量被更新并同步到客户端时自动调用。
 	virtual void OnRep_PlayerState() override;
 private:
-	void InitAbilityActorInfo();
+	virtual void InitAbilityActorInfo() override;
 };
