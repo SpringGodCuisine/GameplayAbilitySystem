@@ -55,7 +55,7 @@ void AAuraCharacter::InitAbilityActorInfo()
 	// 初始化 Ability System Component，将其与 AuraPlayerState 和当前对象（this）关联
 	AuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(AuraPlayerState, this);
 
-	Cast<UAuraAbilitySystemComponent>(AuraPlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet();
+	Cast<UAuraAbilitySystemComponent>(AuraPlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet() ;
 	// 将 Ability System Component 指向 AuraPlayerState 的 Ability System Component
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
 	// 将 Attribute Set 指向 AuraPlayerState 的 Attribute Set
