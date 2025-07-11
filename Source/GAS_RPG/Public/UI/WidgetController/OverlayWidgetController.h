@@ -6,12 +6,30 @@
 #include "UI/WidgetController/AuraWidgetController.h"
 #include "OverlayWidgetController.generated.h"
 
+class UAuraUserWidget; 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOneHealthChangedSignature, float, NewHealth);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMaxHealthChangedSignature, float, NewMaxHealth);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOneManaChangedSignature, float, NewMana);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMaxManaChangedSignature, float, NewMaxMana);
 
+USTRUCT(BlueprintType)
+struct FUIWidgetRow : public FTableRowBase	
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FGameplayTag MessageTag = FGameplayTag();
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FText Message = FText();
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<UAuraUserWidget> MessageWidget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UTexture2D* Image = nullptr;
+};
 
 /**
  * 
@@ -22,7 +40,7 @@ class GAS_RPG_API UOverlayWidgetController : public UAuraWidgetController
 	GENERATED_BODY()
 public:
 	virtual void BroadcastInitialValues() override;
-	virtual void BindCallbacksToDependencies() override;
+	virtual void BindCallbacksToDependencies() override; 
 
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
 	FOneHealthChangedSignature OnHealthChanged;
@@ -37,6 +55,10 @@ public:
 	FMaxManaChangedSignature OnMaxManaChanged;
 
 protected:
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Widget Data")
+	TObjectPtr<UDataTable> MessageWidgetDataTable;
+	
 	void HealthChanged(const FOnAttributeChangeData& Data) const;
 	void MaxHealthChanged(const FOnAttributeChangeData& Data) const;
 	void ManaChanged(const FOnAttributeChangeData& Data) const;
