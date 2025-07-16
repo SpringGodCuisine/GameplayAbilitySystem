@@ -47,6 +47,6 @@ private:
 	void CursorTrace();
 
 	//控制多个高亮物体显示隐藏描边
-	TObjectPtr<IEnemyInterface> LastActor;
-	TObjectPtr<IEnemyInterface> ThisActor;
+	IEnemyInterface* LastActor;
+	IEnemyInterface* ThisActor;
 };
