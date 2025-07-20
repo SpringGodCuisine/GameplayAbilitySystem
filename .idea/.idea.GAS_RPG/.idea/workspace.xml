@@ -12,12 +12,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8c45b00-8953-4579-b0d4-798b3b060ead" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GAS_RPG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GAS_RPG/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultGameplayTags.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGameplayTags.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/GAS_RPG/Private/AbilitySystem/AuraAbilitySystemComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/GAS_RPG/Private/AbilitySystem/AuraAbilitySystemComponent.cpp" afterDir="false" />
-    </list>
+    <list default="true" id="a8c45b00-8953-4579-b0d4-798b3b060ead" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,7 +169,7 @@
       <workItem from="1752634028387" duration="127000" />
       <workItem from="1752634185974" duration="1010000" />
       <workItem from="1752640971650" duration="4003000" />
-      <workItem from="1752922434040" duration="3288000" />
+      <workItem from="1752922434040" duration="3702000" />
     </task>
     <servers />
   </component>
