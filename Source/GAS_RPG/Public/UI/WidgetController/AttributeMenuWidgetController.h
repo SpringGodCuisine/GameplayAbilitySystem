@@ -17,6 +17,4 @@ class GAS_RPG_API UAttributeMenuWidgetController : public UAuraWidgetController
 public:
 	virtual void BindCallbacksToDependencies() override;
 	virtual void BroadcastInitialValues() override;
-
-	
 };
