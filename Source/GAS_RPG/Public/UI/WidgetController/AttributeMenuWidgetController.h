@@ -6,10 +6,14 @@
 #include "UI/WidgetController/AuraWidgetController.h"
 #include "AttributeMenuWidgetController.generated.h"
 
+struct FAuraAttributeInfo;
+class UAttributeInfo;
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAttributeInfoSignature, const FAuraAttributeInfo&, info);
+
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class GAS_RPG_API UAttributeMenuWidgetController : public UAuraWidgetController
 {
 	GENERATED_BODY()
@@ -17,4 +21,12 @@ class GAS_RPG_API UAttributeMenuWidgetController : public UAuraWidgetController
 public:
 	virtual void BindCallbacksToDependencies() override;
 	virtual void BroadcastInitialValues() override;
+
+	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	FAttributeInfoSignature AttributeInfoDelegate;
+
+protected:
+
+	UPROPERTY(EditDefaultsOnly, Category="Attribute Menu Widget Controller")
+	TObjectPtr<UAttributeInfo> AttributeInfo;
 };
