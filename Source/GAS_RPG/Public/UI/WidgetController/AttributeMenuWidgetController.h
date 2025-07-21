@@ -29,4 +29,7 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category="Attribute Menu Widget Controller")
 	TObjectPtr<UAttributeInfo> AttributeInfo;
+
+private:
+	void BroadcastAttributeInfo(const FGameplayTag& AttributeTag, const FGameplayAttribute& Attribute) const;
 };
