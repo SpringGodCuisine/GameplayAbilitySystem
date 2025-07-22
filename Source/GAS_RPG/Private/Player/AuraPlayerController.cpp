@@ -1,9 +1,8 @@
 
 
 #include "Player/AuraPlayerController.h"
-
 #include "EnhancedInputSubsystems.h"
-#include "EnhancedInputComponent.h"
+#include "Input/AuraInputComponent.h"
 #include "Interaction/EnemyInterface.h"
 
 AAuraPlayerController::AAuraPlayerController()
@@ -79,6 +78,21 @@ void AAuraPlayerController::CursorTrace()
 	}
 }
 
+void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
+{
+	GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Red, FString::Printf(TEXT("%s"), *InputTag.ToString()));
+}
+
+void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
+{
+	GEngine->AddOnScreenDebugMessage(2, 3.f, FColor::Blue, FString::Printf(TEXT("%s"), *InputTag.ToString()));
+}
+
+void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
+{
+	GEngine->AddOnScreenDebugMessage(3, 3.f, FColor::Yellow, FString::Printf(TEXT("%s"), *InputTag.ToString()));
+}
+
 void AAuraPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -113,11 +127,9 @@ void AAuraPlayerController::SetupInputComponent()
 	// 调用父类的 SetupInputComponent 方法
 	Super::SetupInputComponent();
 
-	// 将 InputComponent 强制转换为 UEnhancedInputComponent 类型
-	UEnhancedInputComponent * EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
-
-	// 绑定移动操作到 Move 函数，在触发事件发生时调用
-	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
+	UAuraInputComponent * AuraInputComponent = CastChecked<UAuraInputComponent>(InputComponent);
+	AuraInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move);
+	AuraInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
 }
 
 void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
