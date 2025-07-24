@@ -14,7 +14,7 @@ class UEnemyInterface : public UInterface
 };
 
 /**
- * 
+ * 敌人接口
  */
 class GAS_RPG_API IEnemyInterface
 {

@@ -13,12 +13,13 @@ class UCombatInterface : public UInterface
 };
 
 /**
- * 
+ * 战斗接口
  */
 class GAS_RPG_API ICombatInterface
 {
 	GENERATED_BODY()
 
 public:
+	//获取玩家等级
 	virtual int32 GetPlayerLevel();
 };

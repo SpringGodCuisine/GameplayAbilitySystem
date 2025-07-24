@@ -15,8 +15,10 @@ struct FAuraGameplayTags
 {
 public:
 	static const FAuraGameplayTags& Get(){return GameplayTags;}
+	//静态函数 初始化原生玩法标签
 	static void InitializeNativeGameplayTags();
 
+	//属性标签
 	FGameplayTag Attributes_Primary_Strength;
 	FGameplayTag Attributes_Primary_Intelligence;
 	FGameplayTag Attributes_Primary_Resilience;
@@ -34,6 +36,7 @@ public:
 	FGameplayTag Attributes_Secondary_MaxHealth;
 	FGameplayTag Attributes_Secondary_MaxMana;
 
+	//输入标签
 	FGameplayTag InputTag_LMB;
 	FGameplayTag InputTag_RMB;
 	FGameplayTag InputTag_1;

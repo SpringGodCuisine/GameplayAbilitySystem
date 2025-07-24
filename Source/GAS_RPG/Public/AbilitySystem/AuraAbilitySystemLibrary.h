@@ -8,7 +8,7 @@
 #include "AuraAbilitySystemLibrary.generated.h"
 
 /**
- * 
+ * 能力系统静态函数库
  */
 UCLASS()
 class GAS_RPG_API UAuraAbilitySystemLibrary : public UBlueprintFunctionLibrary

@@ -43,15 +43,19 @@ public:
 	virtual void BindCallbacksToDependencies();
 	
 protected:
+	//玩家控制器
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
 	TObjectPtr<APlayerController> PlayerController;
 
+	//玩家状态
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
 	TObjectPtr<APlayerState> PlayerState;
 
+	//能力系统组件
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-	
+
+	//属性
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
 	TObjectPtr<UAttributeSet> AttributeSet;
 };

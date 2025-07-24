@@ -7,7 +7,7 @@
 #include "AuraUserWidget.generated.h"
 
 /**
- * 
+ * UI蓝图基础类
  */
 UCLASS()
 class GAS_RPG_API UAuraUserWidget : public UUserWidget

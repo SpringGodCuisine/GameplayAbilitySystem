@@ -31,8 +31,10 @@ class GAS_RPG_API UAuraInputConfig : public UDataAsset
 
 public: 
 
+	//根据Tag从输入数组中找到InputAction
 	const UInputAction* FindAbilityInputActionForTag(const FGameplayTag& InputTag, bool bLogNotFound = false);
-	
+
+	//输入行为数组
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TArray<FAuraInputAction> AbilityInputActions;
 };

@@ -57,12 +57,16 @@ class GAS_RPG_API UAuraAttributeSet : public UAttributeSet
 	GENERATED_BODY()
 public:
 	UAuraAttributeSet();
+	//获取生命周期内需要同步的属性
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+	//属性变化前
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 
+	//属性变化后
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
+	//源属性到游戏玩法属性函数指针映射
 	TMap<FGameplayTag,  FGameplayAttribute(*)()> TagsToAttributes;
 	
 	/*

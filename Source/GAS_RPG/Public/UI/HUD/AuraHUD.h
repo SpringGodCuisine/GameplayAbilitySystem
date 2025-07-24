@@ -22,10 +22,12 @@ class GAS_RPG_API AAuraHUD : public AHUD
 	GENERATED_BODY()
 
 public:
+	
+	//覆盖层UI控件控制器
 	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
-
+	//菜单栏UI控件控制器
 	UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams);
-
+	//初始化覆盖层
 	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
 
 protected:

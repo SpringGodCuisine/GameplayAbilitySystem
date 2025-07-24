@@ -171,8 +171,10 @@ void UAuraAttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) 
 void UAuraAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props)
 {
 	// Source = couser of the effect, Target = target of the effect (owner of this AS)
-	
+
+	//EffectContextHandle 用于封装 FGameplayEffectContext 或其子类的句柄，使其具备多态性并能正确进行网络同步。
 	Props.EffectContextHandle = Data.EffectSpec.GetContext();
+	/** 返回最初触发整个链条的施法者（Instigator）的能力系统组件（AbilitySystemComponent） */
 	Props.SourceASC = Props.EffectContextHandle.GetOriginalInstigatorAbilitySystemComponent();
 
 	if (IsValid(Props.SourceASC) && Props.SourceASC->AbilityActorInfo.IsValid() && Props.SourceASC->AbilityActorInfo->AvatarActor.IsValid())
