@@ -13,6 +13,7 @@ struct FInputActionValue;
 class IEnemyInterface;
 class UAuraInputConfig;
 class UAuraAbilitySystemComponent;
+class USplineComponent;
 
 /**
  * 
@@ -64,4 +65,21 @@ private:
 	TObjectPtr<UAuraAbilitySystemComponent> AuraAbilitySystemComponent;
 
 	UAuraAbilitySystemComponent* GetASC();
+
+	//缓存光标点击目的地
+	FVector CachedDestination = FVector::ZeroVector;
+	//玩家跟随光标时间
+	float FollowTime = 0.f;
+	//短按预值
+	float ShortPressThreshold = 0.5f;
+	//自动运行
+	bool bAutoRunning = false;
+	//是否瞄准目标
+	bool bTargeting = false;
+	//与目标位置的接近程度
+	UPROPERTY(EditDefaultsOnly, Category="Input")
+	float AutoRunAcceptanceRadius = 50.f;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<USplineComponent> Spline;
 };
