@@ -47,8 +47,6 @@ void AAuraPlayerController::AutoRun()
 
 void AAuraPlayerController::CursorTrace()
 {
-	//声明一个FHitResult变量，用于存储光标下的命中结果
-	FHitResult CursorHit;
 	//获取光标下的命中结果，使用可见性通道碰撞，不忽略自身，结果储存在CursorHit中
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
 	//如果没有阻挡命中则返回
@@ -57,52 +55,10 @@ void AAuraPlayerController::CursorTrace()
 	LastActor = ThisActor;
 	ThisActor = Cast<IEnemyInterface>(CursorHit.GetActor());
 
-	/*
-	 * line trace from cursor. There are several scenarios;
-	 *  A. LastActor is null && ThisActor is null;
-	 *		- Do nothing.
-	 *	B. LastActor is null && ThisActor is Valid;
-	 *		- Highlight ThisActor.
-	 *	C. LastActor is Valid && ThisActor is null;
-	 *		- UnHighlight LastActor.
-	 *	D. Both actors are valid, but LastActor != ThisActor
-	 *		- UnHighlight LastActor, and Highlight ThisActor
-	 *	E. Both actors are valid, and are the same actor
-	 *		- Do nothing
-	 */
-
-	if(LastActor == nullptr)
+	if (LastActor != ThisActor)
 	{
-		if(ThisActor != nullptr)
-		{
-			// Case B
-			ThisActor->HighlightActor();
-		}
-		else
-		{
-			// Case A - both are null, do nothing
-		}
-	}
-	else // LastActor is valid
-	{
-		if(ThisActor == nullptr)
-		{
-			// Case C
-			LastActor->UnHighlightActor();
-		}
-		else // both actors are valid
-		{
-			if(LastActor != ThisActor)
-			{
-				// Case D
-				LastActor->UnHighlightActor();
-				ThisActor->HighlightActor();
-			}
-			else
-			{
-				// Case E - do nothing;	
-			}
-		}
+		if (LastActor) LastActor->UnHighlightActor();
+		if (ThisActor) ThisActor->HighlightActor();
 	}
 }
 
@@ -180,16 +136,15 @@ void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	else
 	{
 		FollowTime += GetWorld()->GetDeltaSeconds();
-
-		FHitResult Hit;
-		if (GetHitResultUnderCursor(ECC_Visibility, false, Hit))
+		
+		if (CursorHit.bBlockingHit)
 		{
 		/**
 		实际碰撞发生时，追踪形状（如盒体、球体、射线等）与被击中对象接触的世界空间位置。
 		例如：对于一次球体追踪测试，这里指的是球体表面接触另一个物体的点。
 		@note：如果是初始重叠（bStartPenetrating=true）的情况，由于没有明确的单一碰撞点可报告，ImpactPoint 将与 Location 相同。
 		*/
-		CachedDestination = Hit.ImpactPoint;
+		CachedDestination = CursorHit.ImpactPoint;
 		// DrawDebugSphere(
 		// 	GetWorld(),
 		// 	Hit.ImpactPoint,

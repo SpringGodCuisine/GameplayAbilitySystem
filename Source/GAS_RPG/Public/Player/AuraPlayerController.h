@@ -53,6 +53,8 @@ private:
 	//控制多个高亮物体显示隐藏描边
 	IEnemyInterface* LastActor;
 	IEnemyInterface* ThisActor;
+	//声明一个FHitResult变量，用于存储光标下的命中结果
+	FHitResult CursorHit;
 
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);
