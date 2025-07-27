@@ -22,4 +22,5 @@ class GAS_RPG_API ICombatInterface
 public:
 	//获取玩家等级
 	virtual int32 GetPlayerLevel();
+	virtual FVector GetCombatSocketLocation();
 };
