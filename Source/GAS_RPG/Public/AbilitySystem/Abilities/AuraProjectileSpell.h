@@ -21,9 +21,9 @@ protected:
 		const FGameplayAbilityActorInfo* ActorInfo,
 		const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 
+	UFUNCTION(BlueprintCallable, Category="Projectile")
+	void SpawnProjectile(const FVector& ProjectileTargetLocation);
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<AAuraProjectile> ProjectileClass;
-
-	UFUNCTION(BlueprintCallable, Category="Projectile")
-	void SpawnProjectile();
 };
