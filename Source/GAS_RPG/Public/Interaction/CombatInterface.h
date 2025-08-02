@@ -35,4 +35,6 @@ public:
 	//又可以在蓝图中重写覆盖该实现。
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	UAnimMontage* GetHitReactMontage();
+
+	virtual void Die() = 0;
 };
