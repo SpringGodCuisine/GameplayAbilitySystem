@@ -26,6 +26,8 @@ public:
 	AAuraPlayerController();
 	//PlayerTick是APlayerController特有的，每帧更新时用来处理与玩家控制相关的逻辑
 	virtual void PlayerTick(float DeltaTime) override;
+
+	
 	
 protected:
 	virtual void BeginPlay() override;
