@@ -6,6 +6,8 @@
 #include "UObject/Interface.h"
 #include "CombatInterface.generated.h"
 
+class UAnimMontage;
+
 UINTERFACE(MinimalAPI, Blueprintable)
 class UCombatInterface : public UInterface
 {
@@ -24,6 +26,13 @@ public:
 	virtual int32 GetPlayerLevel();
 	virtual FVector GetCombatSocketLocation();
 
+	//在蓝图中可以直接实现
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void UpdateFacingTarget(const FVector& Target);
+
+	//BlueprintNativeEvent 是 Unreal Engine 中 UFUNCTION 宏的一种修饰符，用于让函数既可以：
+	//可以在 C++ 中写默认实现，
+	//又可以在蓝图中重写覆盖该实现。
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	UAnimMontage* GetHitReactMontage();
 };
