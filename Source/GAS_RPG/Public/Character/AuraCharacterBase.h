@@ -64,6 +64,25 @@ protected:
 
 	void AddCharacterAbilities() const;
 	
+	/*
+	 * Dissolve Effects 
+	 */
+	void Dissolve();
+
+	//必须由蓝图来实现逻辑的虚函数，C++ 不能写函数体。
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartDissolveTimeline(UMaterialInstanceDynamic* DynamicMaterialInstance); 
+
+	//必须由蓝图来实现逻辑的虚函数，C++ 不能写函数体。
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartWeaponDissolveTimeline(UMaterialInstanceDynamic* DynamicMaterialInstance); 
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UMaterialInstance> DissolveMaterialInstance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UMaterialInstance> WeaponDissolveMaterialInstance;
+	
 private:
 	UPROPERTY(EditAnywhere, Category = "Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
