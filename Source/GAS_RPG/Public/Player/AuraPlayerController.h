@@ -7,6 +7,7 @@
 #include "GameplayTagContainer.h" 
 #include "AuraPlayerController.generated.h"
 
+class UDamageTextComponent;
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
@@ -27,7 +28,8 @@ public:
 	//PlayerTick是APlayerController特有的，每帧更新时用来处理与玩家控制相关的逻辑
 	virtual void PlayerTick(float DeltaTime) override;
 
-	
+	UFUNCTION(Client, Reliable)
+	void ShowDamageNumber(float DamageAmount, ACharacter* TargetCharacter);
 	
 protected:
 	virtual void BeginPlay() override;
@@ -95,4 +97,7 @@ private:
 	TObjectPtr<USplineComponent> Spline;
 
 	void AutoRun();
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UDamageTextComponent> DamageTextComponentClass;
 };
