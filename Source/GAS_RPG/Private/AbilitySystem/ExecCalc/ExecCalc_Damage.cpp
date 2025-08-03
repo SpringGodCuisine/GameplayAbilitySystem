@@ -9,9 +9,11 @@
 struct AuraDamageStatics
 {
 	DECLARE_ATTRIBUTE_CAPTUREDEF(Armor);
+	DECLARE_ATTRIBUTE_CAPTUREDEF(BlockChance);
 	AuraDamageStatics()
 	{
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, Armor, Target, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet, BlockChance, Target, false);
 	}
 };
 
@@ -23,7 +25,9 @@ static const AuraDamageStatics& DamageStatics()
 
 UExecCalc_Damage::UExecCalc_Damage()
 {
+	//捕获属性列表
 	RelevantAttributesToCapture.Add(DamageStatics().ArmorDef);
+	RelevantAttributesToCapture.Add(DamageStatics().BlockChanceDef);
 }
 
 void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
@@ -47,6 +51,17 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	float Damage = Spec.GetSetByCallerMagnitude(FAuraGameplayTags::Get().Damage);
 
 	// 捕获目标的格挡几率
+	float TargetBlockChance = 0;
+	/**
+	* 尝试根据指定参数计算已捕获属性的数值大小（Magnitude）。
+	* 如果 GameplaySpec 中没有该属性的有效捕获信息，则可能会计算失败。
+	*/
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().BlockChanceDef, EvaluateParams, TargetBlockChance);
+	TargetBlockChance = FMath::Max<float>(TargetBlockChance, 0.0f);
+
+	const bool bBlocked = FMath::RandRange(1, 100) < TargetBlockChance;
+	if (bBlocked) Damage /= 2.f;
+
 	
 	//操作Armor
 	// float Armor = 0.f;
