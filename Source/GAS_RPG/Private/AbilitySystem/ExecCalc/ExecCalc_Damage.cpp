@@ -3,6 +3,7 @@
 
 #include "AbilitySystem/ExecCalc/ExecCalc_Damage.h"
 #include "AbilitySystemComponent.h"
+#include "AuraGameplayTags.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 
 struct AuraDamageStatics
@@ -42,12 +43,17 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	EvaluateParams.SourceTags = SourceTags;
 	EvaluateParams.TargetTags = TargetTags;
 
-	float Armor = 0.f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ArmorDef, EvaluateParams, Armor);
-	Armor = FMath::Max<float>(0.f, Armor);
+	// 获取由调用者设置的伤害数值
+	float Damage = Spec.GetSetByCallerMagnitude(FAuraGameplayTags::Get().Damage);
 
-	++Armor;
+	// 捕获目标的格挡几率
 	
-	const FGameplayModifierEvaluatedData EvaluatedData(DamageStatics().ArmorProperty, EGameplayModOp::Additive, Armor);
+	//操作Armor
+	// float Armor = 0.f;
+	// ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ArmorDef, EvaluateParams, Armor);
+	// Armor = FMath::Max<float>(0.f, Armor);
+	// ++Armor;
+	
+	const FGameplayModifierEvaluatedData EvaluatedData(UAuraAttributeSet::GetIncomingDamageAttribute(), EGameplayModOp::Additive, Damage);
 	OutExecutionOutput.AddOutputModifier(EvaluatedData);
 }
