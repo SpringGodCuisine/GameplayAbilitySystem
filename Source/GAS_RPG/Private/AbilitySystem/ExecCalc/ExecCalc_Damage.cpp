@@ -130,7 +130,7 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	
 	//暴击抗性会按照一定比率降低暴击率
 	const float EffectiveCriticalHitChance = SourceCriticalHitChance - TargetCriticalHitResistance * CriticalHitResistanceCoefficient;
-	const float bCriticalHit = FMath::RandRange(1,100) < EffectiveCriticalHitChance;
+	const bool bCriticalHit = FMath::RandRange(1,100) < EffectiveCriticalHitChance;
 	UAuraAbilitySystemLibrary::SetIsCriticalHit(EffectContextHandle, bCriticalHit);
 
 	//如果触发暴击，伤害会翻倍并加上额外加成
