@@ -56,11 +56,13 @@ void UAuraProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocati
 
 		FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
 
-		const float ScaledDamage = Damage.GetValueAtLevel(GetAbilityLevel());
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, FString::Printf(TEXT("Fire Bolt Damage: %f"), ScaledDamage));
-		
-		//用于将一个 Gameplay Tag 和一个数值（float）绑定到 GameplayEffectSpec 上，以供 GameplayEffect 中引用 SetByCaller 变量使用。
-		UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, GameplayTags.Damage, ScaledDamage);
+		for (auto& Pair:DamageTypes)
+		{
+			const float ScaledDamage = Pair.Value.GetValueAtLevel(GetAbilityLevel());
+			//GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, FString::Printf(TEXT("Fire Bolt Damage: %f"), ScaledDamage));
+			//用于将一个 Gameplay Tag 和一个数值（float）绑定到 GameplayEffectSpec 上，以供 GameplayEffect 中引用 SetByCaller 变量使用。
+			UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, Pair.Key, ScaledDamage);
+		}
 		Projectile->DamageEffectSpecHandle = SpecHandle;
 		
 		Projectile->FinishSpawning(SpawnTransform);

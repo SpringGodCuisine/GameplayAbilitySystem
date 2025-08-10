@@ -46,6 +46,11 @@ public:
 
 	FGameplayTag Damage;
 
+	//火焰伤害类型
+	FGameplayTag Damage_Fire;
+
+	TArray<FGameplayTag> DamageTypes;
+	
 	FGameplayTag Effects_HitReact;
 	
 protected:
