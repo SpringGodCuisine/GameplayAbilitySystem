@@ -36,6 +36,12 @@ public:
 	FGameplayTag Attributes_Secondary_MaxHealth;
 	FGameplayTag Attributes_Secondary_MaxMana;
 
+	//抗性
+	FGameplayTag Attributes_Resistance_Fire;
+	FGameplayTag Attributes_Resistance_Lightning;
+	FGameplayTag Attributes_Resistance_Arcane;
+	FGameplayTag Attributes_Resistance_Physical;
+
 	//输入标签
 	FGameplayTag InputTag_LMB;
 	FGameplayTag InputTag_RMB;
@@ -48,8 +54,15 @@ public:
 
 	//火焰伤害类型
 	FGameplayTag Damage_Fire;
-
-	TArray<FGameplayTag> DamageTypes;
+	//闪电伤害类型
+	FGameplayTag Damage_Lightning;
+	//奥术伤害类型
+	FGameplayTag Damage_Arcane;
+	//物理伤害类型
+	FGameplayTag Damage_Physical;
+	
+	//伤害类型和抗性映射关系
+	TMap<FGameplayTag, FGameplayTag> DamageTypesToResistances;
 	
 	FGameplayTag Effects_HitReact;
 	
