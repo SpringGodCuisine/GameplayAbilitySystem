@@ -65,7 +65,7 @@ protected:
 	void AddCharacterAbilities() const;
 	
 	/*
-	 * Dissolve Effects 
+	 * Dissolve Effects 溶解效果
 	 */
 	void Dissolve();
 
