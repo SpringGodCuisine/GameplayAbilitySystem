@@ -145,13 +145,10 @@ void UAuraAttributeSet::ShowFloatingText(const FEffectProperties& Props, float D
 {
 	if (Props.SourceCharacter != Props.TargetCharacter)
 	{
-		if (AAuraPlayerController* PlayerController = Cast<AAuraPlayerController>(UGameplayStatics::GetPlayerController(Props.SourceCharacter, 0)))
+		if (AAuraPlayerController* PC = Cast<AAuraPlayerController>(Props.SourceCharacter->Controller))
 		{
-			PlayerController->ShowDamageNumber(Damage, Props.TargetCharacter, bBlockHit, bCriticalHit);
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("PlayerController Is Null"));
+			//ClientRPC
+			PC->ShowDamageNumber(Damage, Props.TargetCharacter, bBlockHit, bCriticalHit);
 		}
 	}
 }
