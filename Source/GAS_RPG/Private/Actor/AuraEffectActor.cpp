@@ -19,13 +19,9 @@ void AAuraEffectActor::BeginPlay()
 
 void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
 {
-	// IAbilitySystemInterface* ASCInterface = Cast<IAbilitySystemInterface>(Target);
-	// if(ASCInterface)
-	// {
-	// 	ASCInterface->GetAbilitySystemComponent();
-	// }
+	//如果是敌人直接返回
+	if (TargetActor->ActorHasTag(FName("Enemy")) && !bApplyEffectsToEnemies) return; 
 	
-	// 使用蓝图库函数获取目标的 Ability System Component (ASC)
 	UAbilitySystemComponent* TargetASC =  UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
 	if(TargetASC == nullptr)return;
 	check(GameplayEffectClass);
@@ -44,10 +40,18 @@ void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGam
 	{
 		ActiveEffectHandles.Add(ActiveEffectHandle, TargetASC);
 	}
+
+	if (!bIsInfinite)
+	{
+		Destroy();
+	}
 }
 
 void AAuraEffectActor::OnOverlap(AActor* TargetActor)
 {
+	//如果是敌人直接返回
+	if (TargetActor->ActorHasTag(FName("Enemy")) && !bApplyEffectsToEnemies) return;
+	
 	if (InstanceEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
 	{
 		ApplyEffectToTarget(TargetActor, InstanceGameplayEffectClass);
@@ -63,7 +67,9 @@ void AAuraEffectActor::OnOverlap(AActor* TargetActor)
 }
 
 void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)
-{
+{	//如果是敌人直接返回
+	if (TargetActor->ActorHasTag(FName("Enemy")) && !bApplyEffectsToEnemies) return;
+	
 	if (InstanceEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
 	{
 		ApplyEffectToTarget(TargetActor, InstanceGameplayEffectClass);
