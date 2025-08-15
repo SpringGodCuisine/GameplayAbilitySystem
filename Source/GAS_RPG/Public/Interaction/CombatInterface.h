@@ -24,7 +24,9 @@ class GAS_RPG_API ICombatInterface
 public:
 	//获取玩家等级
 	virtual int32 GetPlayerLevel();
-	virtual FVector GetCombatSocketLocation();
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	FVector GetCombatSocketLocation();
 
 	//在蓝图中可以直接实现
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
