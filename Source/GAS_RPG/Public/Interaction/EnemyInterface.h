@@ -24,4 +24,11 @@ class GAS_RPG_API IEnemyInterface
 public:
 	virtual void HighlightActor() = 0;
 	virtual void UnHighlightActor() = 0;
+
+	//蓝图原生事件
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void SetCombatTarget(AActor* InCombatTarget);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	AActor* GetCombatTarget() const;
 };
