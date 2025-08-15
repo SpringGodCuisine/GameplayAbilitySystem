@@ -60,6 +60,8 @@ public:
 	FGameplayTag Damage_Arcane;
 	//物理伤害类型
 	FGameplayTag Damage_Physical;
+
+	FGameplayTag Abilities_Attack;
 	
 	//伤害类型和抗性映射关系
 	TMap<FGameplayTag, FGameplayTag> DamageTypesToResistances;
