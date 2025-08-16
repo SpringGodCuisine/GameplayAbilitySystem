@@ -116,7 +116,15 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 		const FGameplayEffectAttributeCaptureDefinition CaptureDef = AuraDamageStatics().TagsToCaptureDefs[ResistanceTag];
 		
 		// 获取由调用者设置的伤害数值
-		float DamageTypeValue = Spec.GetSetByCallerMagnitude(DamageTypeTag);
+		float DamageTypeValue = Spec.GetSetByCallerMagnitude(DamageTypeTag, false, -1.f);
+		if (DamageTypeValue == -1.f)
+		{
+			continue;
+		}
+		
+		FString TagNameString = DamageTypeTag.GetTagName().ToString();
+		FString DebugMsg = FString::Printf(TEXT("TAG NAME :: %s, DAMAGE = %f"), *TagNameString, DamageTypeValue);
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, DebugMsg);
 		
 		float Resistance = 0.f;
 		ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(CaptureDef, EvaluateParams, Resistance);
