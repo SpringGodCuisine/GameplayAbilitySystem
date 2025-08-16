@@ -29,11 +29,16 @@ public:
 	virtual FVector GetCombatSocketLocation_Implementation() override;
 	virtual bool IsDead_Implementation() const override;
 	virtual AActor* GetAvatar_Implementation() override;
+	virtual TArray<FTaggedMontage> GetAttackMontages_Implementation() override;
 	/* end combat Interface */
 
 	// 当服务器调用这个函数时，服务器和所有客户端都会执行它
 	UFUNCTION(NetMulticast, reliable)
 	virtual void MulticastHandleDeath();
+
+	// 攻击蒙太奇
+	UPROPERTY(EditAnywhere, Category = Combat)
+	TArray<FTaggedMontage> AttackMontages;
 protected:
 	virtual void BeginPlay() override;
 

@@ -135,7 +135,11 @@ void AAuraEnemy::HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCou
 {
 	bHitReacting = NewCount > 0;
 	GetCharacterMovement()->MaxWalkSpeed = bHitReacting? 0.f : BaseWalkSpeed;
-	AuraAIController->GetBlackboardComponent()->SetValueAsBool(FName("HitReacting"), bHitReacting);
+	if (AuraAIController && AuraAIController->GetBlackboardComponent())
+	{
+		//AIController在客户端上是无效的，只在服务器上有效
+		AuraAIController->GetBlackboardComponent()->SetValueAsBool(FName("HitReacting"), bHitReacting);
+	}
 }
 
 void AAuraEnemy::InitAbilityActorInfo()
