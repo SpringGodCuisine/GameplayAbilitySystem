@@ -16,6 +16,7 @@ class GAS_RPG_API AAuraGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+	//玩家和敌人的一些通用属性放在里面
 	UPROPERTY(EditDefaultsOnly, Category="Character Class Defaults")
 	TObjectPtr<UCharacterClassInfo> CharacterClassInfo;
 	

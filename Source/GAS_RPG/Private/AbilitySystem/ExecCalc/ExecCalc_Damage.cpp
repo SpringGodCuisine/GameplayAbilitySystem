@@ -89,18 +89,29 @@ UExecCalc_Damage::UExecCalc_Damage()
 void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
 	FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
 {
+	//FGameplayEffectCustomExecutionParameters
+	//执行计算时的“工具箱”，让你能安全地获取属性、效果上下文和额外信息。
+	//获取目标跟源的能力系统组件
 	const UAbilitySystemComponent* SourceASC = ExecutionParams.GetSourceAbilitySystemComponent();
 	const UAbilitySystemComponent* TargetASC = ExecutionParams.GetTargetAbilitySystemComponent();
 
+	//从组件中获取实体组件
 	AActor* SourceAvatar = SourceASC ? SourceASC->GetAvatarActor() : nullptr;
 	AActor* TargetAvatar = TargetASC ? TargetASC->GetAvatarActor() : nullptr;
 	ICombatInterface* SourceCombatInterface = Cast<ICombatInterface>(SourceAvatar);
 	ICombatInterface* TargetCombatInterface = Cast<ICombatInterface>(TargetAvatar);
 
+	//获取所属的 GameplayEffectSpec 的简单访问器
 	const FGameplayEffectSpec& Spec = ExecutionParams.GetOwningSpec();
+	//生效的源Tag集合
 	const FGameplayTagContainer* SourceTags = Spec.CapturedSourceTags.GetAggregatedTags();
+	//生效的目标Tag集合
 	const FGameplayTagContainer* TargetTags = Spec.CapturedTargetTags.GetAggregatedTags();
-	
+
+	//Aggregator 是用来 管理和计算属性（Attribute）值变化的核心机制。
+	//它的作用是把 多个 GameplayEffect 对同一属性的修改 整合起来，计算出最终属性值。
+	//控制属性聚合器（Aggregator）在计算最终属性值时的行为。
+	//换句话说，它是告诉聚合器在计算属性时“用什么规则、哪些条件” 的小工具。
 	FAggregatorEvaluateParameters EvaluateParams;
 	EvaluateParams.SourceTags = SourceTags;
 	EvaluateParams.TargetTags = TargetTags;
@@ -127,6 +138,7 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, DebugMsg);
 		
 		float Resistance = 0.f;
+		//从 GameplayEffectSpec 捕获的属性里，获取经过所有 Modifier、标签和条件计算后的实际值。
 		ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(CaptureDef, EvaluateParams, Resistance);
 		Resistance = FMath::Clamp(Resistance, 0.f, 100.f);
 		// 乘以减去抗性抵消后的伤害百分比

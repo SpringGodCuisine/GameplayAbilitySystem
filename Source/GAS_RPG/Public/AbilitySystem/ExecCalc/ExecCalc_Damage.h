@@ -7,7 +7,7 @@
 #include "ExecCalc_Damage.generated.h"
 
 /**
- * 
+ * 自定义执行时的数值计算逻辑。
  */
 UCLASS()
 class GAS_RPG_API UExecCalc_Damage : public UGameplayEffectExecutionCalculation

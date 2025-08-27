@@ -8,7 +8,8 @@
 /**
  * AuraGameplayTags
  *
- * Singleton containing native Gameplay Tags 
+ * Singleton containing native Gameplay Tags
+ * 单例类
  */
 
 struct FAuraGameplayTags
