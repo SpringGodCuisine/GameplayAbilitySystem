@@ -7,6 +7,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "NiagaraFunctionLibrary.h"
+#include "AbilitySystem/AuraAbilitySystemLibrary.h"
 #include "Components/AudioComponent.h"
 
 
@@ -59,7 +60,32 @@ void AAuraProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, 
 	{
 		return;
 	}
+
+	// if (GEngine)
+	// {
+	// 	if (AActor* Causer = DamageEffectSpecHandle.Data.Get()->GetContext().GetEffectCauser())
+	// 	{
+	// 		GEngine->AddOnScreenDebugMessage(
+	// 			-1, 10.f, FColor::Red,
+	// 			FString::Printf(TEXT("EffectCauser: %s"), *Causer->GetName())
+	// 		);
+	// 	}
+	//
+	// 	if (OtherActor)
+	// 	{
+	// 		GEngine->AddOnScreenDebugMessage(
+	// 			-1, 10.f, FColor::Green,
+	// 			FString::Printf(TEXT("OtherActor: %s"), *OtherActor->GetName())
+	// 		);
+	// 	}
+	// }
+	
 	if (DamageEffectSpecHandle.Data.Get()->GetContext().GetEffectCauser() == OtherActor)
+	{
+		return;
+	}
+
+	if (!UAuraAbilitySystemLibrary::IsNotFriend(DamageEffectSpecHandle.Data.Get()->GetContext().GetEffectCauser(), OtherActor))
 	{
 		return;
 	}
