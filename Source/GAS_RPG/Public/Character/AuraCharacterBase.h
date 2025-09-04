@@ -56,8 +56,11 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Combat")
 	FName RightHandSocketName;
 
-	UPROPERTY(EditAnywhere, Category = "Combat")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combat")
 	UNiagaraSystem* BloodEffect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combat")
+	USoundBase* DeathSound;
 	
 	bool bDead = false;
 	
