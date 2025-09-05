@@ -34,6 +34,7 @@ TArray<FVector> UAuraSummonAbility::GetSpawnLocations()
 			ChosenSpawnLocation + FVector(0.f, 0.f, 400.f),
 			ChosenSpawnLocation - FVector(0.f, 0.f, 400.f),
 			ECC_Visibility);
+		
 		if (Hit.bBlockingHit)
 		{
 			ChosenSpawnLocation = Hit.ImpactPoint;
