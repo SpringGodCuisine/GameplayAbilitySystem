@@ -18,7 +18,6 @@ TArray<FVector> UAuraSummonAbility::GetSpawnLocations()
 	{
 		const FVector Direction = LeftOfSpread.RotateAngleAxis(DeltaSpread * i, FVector::UpVector);
 		FVector ChosenSpawnLocation = Location + Direction * FMath::RandRange(MinSpawnDistance, MaxSpawnDistance);
-
 		
 		// DrawDebugSphere(GetWorld(), ChosenSpawnLocation, 18.f, 12.f, FColor::Cyan, false, 3.f);
 		// UKismetSystemLibrary::DrawDebugArrow(GetAvatarActorFromActorInfo(),
