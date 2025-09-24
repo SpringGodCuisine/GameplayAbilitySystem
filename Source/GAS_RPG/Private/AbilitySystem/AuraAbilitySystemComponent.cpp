@@ -16,6 +16,7 @@ void UAuraAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf
 	//遍历初始能力
 	for (const TSubclassOf<UGameplayAbility> AbilityClass : StartupAbilities)
 	{
+		//初始等级Inlevel
 		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
 		if (const UAuraGameplayAbility* AuraAbility = Cast<UAuraGameplayAbility>(AbilitySpec.Ability))
 		{
