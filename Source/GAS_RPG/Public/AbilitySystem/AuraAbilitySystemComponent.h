@@ -33,7 +33,13 @@ public:
 	static FGameplayTag GetAbilityTagFromSpec(const FGameplayAbilitySpec& AbilitySpec);
 	static FGameplayTag GetInputTagFromSpec(const FGameplayAbilitySpec& AbilitySpec);
 protected:
-
+	
+	// 当 UAbilitySystemComponent 内部的 ActivateAbilities（可激活的技能列表） 这个 Replicated 变量在 服务端发生变化，并被同步到 客户端 时，就会调用 OnRep_ActivateAbilities()。
+	// 服务器调用 GiveAbility() / ClearAbility() 等函数 → 改变了 ActivateAbilities
+	// 这个变化会通过网络复制到客户端
+	// 客户端接收更新后 → 自动调用 OnRep_ActivateAbilities()
+	virtual void OnRep_ActivateAbilities() override;
+	
 	//RPC
 	//Reliable可靠的，消息一定会到达客户端。即使在网络丢包的情况下，消息也会一直发送。直到收到确认消息。
 	UFUNCTION(Client, Reliable)

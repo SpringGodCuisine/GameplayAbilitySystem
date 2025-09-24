@@ -26,6 +26,7 @@ void UAuraAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf
 		//GiveAbilityAndActivateOnce(AbilitySpec);
 	}
 	bStartupAbilitiesGiven = true;
+	//服务器上执行的
 	AbilitiesGivenDelegate.Broadcast(this);
 }
 
@@ -106,6 +107,18 @@ FGameplayTag UAuraAbilitySystemComponent::GetInputTagFromSpec(const FGameplayAbi
 		}
 	}
 	return FGameplayTag();
+}
+
+void UAuraAbilitySystemComponent::OnRep_ActivateAbilities()
+{	
+	Super::OnRep_ActivateAbilities();
+
+	//客户端才会执行，这里第一次为false，确保了这里只执行一次
+	if (!bStartupAbilitiesGiven)
+	{
+		bStartupAbilitiesGiven = true;
+		AbilitiesGivenDelegate.Broadcast(this);
+	}
 }
 
 void UAuraAbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* AbilitySystemComponent,
