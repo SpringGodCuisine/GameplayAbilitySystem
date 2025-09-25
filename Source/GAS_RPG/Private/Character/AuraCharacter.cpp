@@ -30,6 +30,8 @@ AAuraCharacter::AAuraCharacter()
 	bUseControllerRotationRoll = false;
 	// 禁用控制器控制角色的偏航角度（Yaw）
 	bUseControllerRotationYaw = false;
+
+	CharacterClass = ECharacterClass::Elementalist;
 }
 
 void AAuraCharacter::PossessedBy(AController* NewController)
