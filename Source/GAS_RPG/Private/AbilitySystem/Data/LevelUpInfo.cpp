@@ -1,0 +1,28 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "AbilitySystem/Data/LevelUpInfo.h"
+
+int32 ULevelUpInfo::FindLevelForXP(int32 XP)
+{
+	int32 level = 1;
+	bool bSearching = true;
+	while (bSearching)
+	{
+		// LevelUpInformation[1] = level 1 Information
+		// LevelUpInformation[1] = level 2 Information
+		if (LevelUpInformation.Num() -1 <= level)
+		{
+			return level;
+		}
+		if (XP >= LevelUpInformation[level].LevelUpRequirement)
+		{
+			++level;
+		}
+		else
+		{
+			bSearching = false;
+		}
+	}
+	return level;
+}

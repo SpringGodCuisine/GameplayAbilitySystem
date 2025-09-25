@@ -12,11 +12,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8c45b00-8953-4579-b0d4-798b3b060ead" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GAS_RPG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GAS_RPG/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/UI/SpellGlobels/WBP_SpellGlobel.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/UI/SpellGlobels/WBP_SpellGlobel.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GAS_RPG.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/GAS_RPG.sln.DotSettings.user" afterDir="false" />
-    </list>
+    <list default="true" id="a8c45b00-8953-4579-b0d4-798b3b060ead" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -252,7 +248,7 @@
       <workItem from="1755227513235" duration="15252000" />
       <workItem from="1756972509051" duration="7435000" />
       <workItem from="1757834017566" duration="9346000" />
-      <workItem from="1758703221543" duration="7504000" />
+      <workItem from="1758703221543" duration="7768000" />
     </task>
     <servers />
   </component>
