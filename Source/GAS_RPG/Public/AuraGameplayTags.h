@@ -43,6 +43,9 @@ public:
 	FGameplayTag Attributes_Resistance_Arcane;
 	FGameplayTag Attributes_Resistance_Physical;
 
+	//经验
+	FGameplayTag Attributes_Meta_IncomingXP;
+
 	//输入标签
 	FGameplayTag InputTag_LMB;
 	FGameplayTag InputTag_RMB;
