@@ -9,6 +9,7 @@
 
 class UAbilitySystemComponent;
 class UAttributeSet;
+class ULevelUpInfo;
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnPlayerStatChange, int32 /*StatValue*/)
 
@@ -28,6 +29,9 @@ public:
 	//获取属性
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<ULevelUpInfo> LevelUpInfo;
+	
 	FOnPlayerStatChange OnXPChangedDelegate;
 	FOnPlayerStatChange OnLevelChangedDelegate;
 	

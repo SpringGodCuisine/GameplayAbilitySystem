@@ -34,5 +34,5 @@ class GAS_RPG_API ULevelUpInfo : public UDataAsset
 	UPROPERTY(EditDefaultsOnly)
 	TArray<FAuraLevelUpInfo> LevelUpInformation;
 
-	int32 FindLevelForXP(int32 XP);
+	int32 FindLevelForXP(int32 XP) const;
 };
