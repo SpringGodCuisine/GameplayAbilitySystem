@@ -19,34 +19,81 @@ USTRUCT()
 struct FEffectProperties
 {
 	GENERATED_BODY()
+
+	// 构造函数，初始化为空
 	FEffectProperties(){}
 
+	// ------------------- 来源 (Source) -------------------
+
+	/** 
+	 * 效果上下文（Context）句柄 
+	 * 存放了本次 GameplayEffect 的来源信息，例如 Instigator、Causer、TargetData 等。
+	 * 通过它可以获取更多细节（比如子弹击中 vs 技能释放）。
+	 */
 	FGameplayEffectContextHandle EffectContextHandle;
 
+	/** 
+	 * 来源的 AbilitySystemComponent（ASC） 
+	 * 通常是释放技能或施加效果的角色身上的 ASC。
+	 */
 	UPROPERTY()
 	UAbilitySystemComponent* SourceASC = nullptr;
 
+	/** 
+	 * 来源的 Avatar Actor 
+	 * Avatar 是 GAS 中的“实体载体”，通常就是角色 Pawn/Character。
+	 */
 	UPROPERTY()
 	AActor* SourceAvatarActor = nullptr;
 
+	/** 
+	 * 来源的 Controller（控制器） 
+	 * 如果来源是玩家角色，这里就是 PlayerController。
+	 * 如果是 AI，则是 AIController。
+	 */
 	UPROPERTY()
 	AController* SourceController = nullptr;
 
+	/** 
+	 * 来源的 Character 
+	 * 如果 Avatar 是 Character（继承自 ACharacter），这里会被赋值。
+	 * 方便直接访问 Character 专属接口。
+	 */
 	UPROPERTY()
 	ACharacter* SourceCharacter = nullptr;
 
+
+	// ------------------- 目标 (Target) -------------------
+
+	/** 
+	 * 目标的 AbilitySystemComponent（ASC） 
+	 * 通常是承受技能或效果的对象。
+	 */
 	UPROPERTY()
 	UAbilitySystemComponent* TargetASC = nullptr;
 
+	/** 
+	 * 目标的 Avatar Actor 
+	 * 也就是被击中的实际 Actor（比如 Character、NPC、怪物）。
+	 */
 	UPROPERTY()
 	AActor* TargetAvatarActor = nullptr;
 
+	/** 
+	 * 目标的 Controller（控制器） 
+	 * 可能是玩家控制器或 AI 控制器，取决于目标是谁。
+	 */
 	UPROPERTY()
 	AController* TargetController = nullptr;
 
+	/** 
+	 * 目标的 Character 
+	 * 如果目标是 ACharacter，就能直接在这里访问。
+	 */
 	UPROPERTY()
 	ACharacter* TargetCharacter = nullptr;
 };
+
 
 /**
  * 
@@ -227,5 +274,6 @@ private:
 	
 	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props);
 	void ShowFloatingText(const FEffectProperties& Props, float Damage, bool bBlockHit, bool bCriticalHit) const;
+	void SendXPEvent(const FEffectProperties& props);
 };
 
