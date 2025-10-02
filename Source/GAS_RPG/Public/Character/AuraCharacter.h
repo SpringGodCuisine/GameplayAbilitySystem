@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Character/AuraCharacterBase.h"
+#include "Interaction/PlayerInterface.h"
 #include "AuraCharacter.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class GAS_RPG_API AAuraCharacter : public AAuraCharacterBase
+class GAS_RPG_API AAuraCharacter : public AAuraCharacterBase, public IPlayerInterface
 {
 	GENERATED_BODY()
 public:
@@ -20,6 +21,10 @@ public:
 	//用于网络复制的一个回调函数，这个函数会在PlayerState变量被更新并同步到客户端时自动调用。
 	virtual void OnRep_PlayerState() override;
 
+	/** Player Interface */
+	virtual void AddToXP_Implementation(int32 InXP) override;
+	/** End Player Interface */
+	
 	/** Combat Interface */
 	virtual int32 GetPlayerLevel() override;
 	/** End Combat Interface */
