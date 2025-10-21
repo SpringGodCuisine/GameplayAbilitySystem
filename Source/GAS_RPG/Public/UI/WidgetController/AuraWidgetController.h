@@ -6,7 +6,9 @@
 #include "AbilitySystemComponent.h"
 #include "AuraWidgetController.generated.h"
 
-class UAuraAttributeSet;
+//玩家状态改变时
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerStatChangedSignature, int32, NewValue);
+
 class UAttributeSet;
 class UAbilitySystemComponent;
 
