@@ -144,12 +144,7 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 		{
 			continue;
 		}
-
-
-		FString TagNameString = DamageTypeTag.GetTagName().ToString();
-		FString DebugMsg = FString::Printf(TEXT("TAG NAME :: %s, DAMAGE = %f"), *TagNameString, DamageTypeValue);
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, DebugMsg);
-
+		
 		float Resistance = 0.f;
 		//从 GameplayEffectSpec 捕获的属性里，获取经过所有 Modifier、标签和条件计算后的实际值。
 		ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(CaptureDef, EvaluateParams, Resistance);
