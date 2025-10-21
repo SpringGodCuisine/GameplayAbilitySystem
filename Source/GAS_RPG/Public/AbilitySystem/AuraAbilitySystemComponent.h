@@ -33,6 +33,12 @@ public:
 
 	static FGameplayTag GetAbilityTagFromSpec(const FGameplayAbilitySpec& AbilitySpec);
 	static FGameplayTag GetInputTagFromSpec(const FGameplayAbilitySpec& AbilitySpec);
+	
+	void UpgradeAttribute(const FGameplayTag& AttributeTag);
+
+	UFUNCTION(Server, Reliable)
+	void ServerUpgradeAttribute(const FGameplayTag& AttributeTag);
+
 protected:
 	
 	// 当 UAbilitySystemComponent 内部的 ActivateAbilities（可激活的技能列表） 这个 Replicated 变量在 服务端发生变化，并被同步到 客户端 时，就会调用 OnRep_ActivateAbilities()。
