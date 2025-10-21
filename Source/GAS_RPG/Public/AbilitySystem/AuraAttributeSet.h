@@ -113,6 +113,8 @@ public:
 	//属性变化后
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
+	virtual void PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue) override;
+
 	//源属性到游戏玩法属性函数指针映射
 	TMap<FGameplayTag,  FGameplayAttribute(*)()> TagsToAttributes;
 	
@@ -275,5 +277,7 @@ private:
 	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props);
 	void ShowFloatingText(const FEffectProperties& Props, float Damage, bool bBlockHit, bool bCriticalHit) const;
 	void SendXPEvent(const FEffectProperties& props);
+	bool bTopOffHealth = false;
+	bool bTopOffMana = false;
 };
 
