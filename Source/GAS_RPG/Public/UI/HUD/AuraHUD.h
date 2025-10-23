@@ -12,9 +12,10 @@ class UAttributeSet;
 class UAbilitySystemComponent;
 class UAuraUserWidget;
 class UOverlayWidgetController;
+class USpellMenuWidgetController;
 struct FWidgetControllerParams;
 /**
- * 
+ * 项目中的WidgetController存在于HUD类中
  */
 UCLASS()
 class GAS_RPG_API AAuraHUD : public AHUD
@@ -27,10 +28,10 @@ public:
 	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
 	//菜单栏UI控件控制器
 	UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams);
+	//技能菜单控件控制器
+	USpellMenuWidgetController* GetSpellMenuWidgetController(const FWidgetControllerParams& WCParams);
 	//初始化覆盖层
 	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
-
-protected:
 
 private:
 	UPROPERTY()
@@ -50,4 +51,10 @@ private:
 	
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UAttributeMenuWidgetController> AttributeMenuWidgetControllerClass;
+
+	UPROPERTY()
+	TObjectPtr<USpellMenuWidgetController> SpellMenuWidgetController; 
+	
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<USpellMenuWidgetController> SpellMenuWidgetClass;
 };

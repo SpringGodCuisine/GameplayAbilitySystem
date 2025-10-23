@@ -5,6 +5,7 @@
 
 #include "UI/WidgetController/AttributeMenuWidgetController.h"
 #include "UI/WidgetController/OverlayWidgetController.h" 
+#include "UI/WidgetController/SpellMenuWidgetController.h"
 #include "UI/Widgets/AuraUserWidget.h"
 
 // 获取 Overlay Widget Controller，如果尚未创建则进行创建和初始化
@@ -18,8 +19,6 @@ UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetCont
 		OverlayWidgetController->SetWidgetControllerParams(WCParams);
 		// 设置回调函数Bind
 		OverlayWidgetController->BindCallbacksToDependencies();
-		// 返回创建的 Overlay Widget Controller
-		return OverlayWidgetController;
 	}
 	return OverlayWidgetController;
 }
@@ -31,9 +30,19 @@ UAttributeMenuWidgetController* AAuraHUD::GetAttributeMenuWidgetController(const
 		AttributeMenuWidgetController = NewObject<UAttributeMenuWidgetController>(this, AttributeMenuWidgetControllerClass);
 		AttributeMenuWidgetController->SetWidgetControllerParams(WCParams);
 		AttributeMenuWidgetController->BindCallbacksToDependencies();
-		return AttributeMenuWidgetController;
 	}
 	return AttributeMenuWidgetController;
+}
+
+USpellMenuWidgetController* AAuraHUD::GetSpellMenuWidgetController(const FWidgetControllerParams& WCParams)
+{
+	if (SpellMenuWidgetController == nullptr)
+	{
+		SpellMenuWidgetController = NewObject<USpellMenuWidgetController>(this, SpellMenuWidgetClass);
+		SpellMenuWidgetController->SetWidgetControllerParams(WCParams); 
+		SpellMenuWidgetController->BindCallbacksToDependencies();
+	}
+	return SpellMenuWidgetController;
 }
 
 void AAuraHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
