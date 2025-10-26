@@ -231,12 +231,17 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FName("Abilities.HitReact"),
 		FString("HitReact Ability")
 	);
-
+	
 	GameplayTags.Abilities_Status_Equipped = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Status.Equipped"),
 		FString("Equipped Status")
 	);
 
+	GameplayTags.Abilities_Status_Eligible = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Abilities.Status.Eligible"),
+		FString("Eligible Status")
+	);
+	
 	GameplayTags.Abilities_Status_Locked = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Status.Locked"),
 		FString("Locked Status")
