@@ -83,7 +83,7 @@ private:
 
 	UFUNCTION()
 	void OnRep_AttributePoints(int32 OldAttributePoints);
-
+	
 	UFUNCTION()
 	void OnRep_SpellPoints(int32 OldSpellPoints);
 	
