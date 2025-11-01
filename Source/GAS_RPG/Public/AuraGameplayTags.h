@@ -67,6 +67,8 @@ public:
 	//物理伤害类型
 	FGameplayTag Damage_Physical;
 
+	FGameplayTag Abilities_None;
+
 	FGameplayTag Abilities_Attack;
 	FGameplayTag Abilities_Summon;
 
