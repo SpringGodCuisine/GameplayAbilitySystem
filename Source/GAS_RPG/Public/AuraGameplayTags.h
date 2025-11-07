@@ -74,9 +74,13 @@ public:
 
 	FGameplayTag Abilities_HitReact;
 
+	//锁定的
 	FGameplayTag Abilities_Status_Locked;
+	//合格，符合条件的，可解锁
 	FGameplayTag Abilities_Status_Eligible;
+	//已解锁
 	FGameplayTag Abilities_Status_Unlocked;
+	//装备中
 	FGameplayTag Abilities_Status_Equipped;
 
 	FGameplayTag Abilities_Type_Offensive;
