@@ -251,7 +251,7 @@ void UAuraAbilitySystemComponent::ServerEquipAbility_Implementation(const FGamep
 		const FGameplayTag& PrevSlot = GetInputTagFromSpec(*AbilitySpec);
 		const FGameplayTag& Status = GetStatusFromSpec(*AbilitySpec);
 
-		const bool bStatusValid = Status == GameplayTags.Abilities_Status_Eligible || Status == GameplayTags.Abilities_Status_Unlocked;
+		const bool bStatusValid = Status == GameplayTags.Abilities_Status_Equipped || Status == GameplayTags.Abilities_Status_Unlocked;
 		if (bStatusValid)
 		{
 			// 移除所有技能中带有slot标签的技能, 任何带有该标签的技能
