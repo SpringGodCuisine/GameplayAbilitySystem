@@ -181,10 +181,6 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	/*
 	 *  Debuffs
 	 */
-	FGameplayTag Debuff_Burn;
-	FGameplayTag Debuff_Stun;
-	FGameplayTag Debuff_Arcane;
-	FGameplayTag Debuff_Physical;
 	GameplayTags.Debuff_Burn = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Debuff.Burn"),
 		FString("Debuff for fire Damage")
@@ -202,6 +198,22 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FString("Debuff for Lightning Damage")
 	);
 
+	GameplayTags.Debuff_Chance = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Debuff.Chance"),
+		FString("Debuff Chance")
+	);
+	GameplayTags.Debuff_Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Debuff.Damage"),
+		FString("Debuff Damage")
+	);
+	GameplayTags.Debuff_Duration = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Debuff.Duration"),
+		FString("Debuff Duration")
+	);
+	GameplayTags.Debuff_Frequency = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Debuff.Frequency"),
+		FString("Debuff Frequency")
+	);
 	
 	/*
 	 *  Meta Attributes
