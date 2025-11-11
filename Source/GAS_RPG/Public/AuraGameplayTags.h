@@ -37,12 +37,6 @@ public:
 	FGameplayTag Attributes_Secondary_MaxHealth;
 	FGameplayTag Attributes_Secondary_MaxMana;
 
-	//抗性
-	FGameplayTag Attributes_Resistance_Fire;
-	FGameplayTag Attributes_Resistance_Lightning;
-	FGameplayTag Attributes_Resistance_Arcane;
-	FGameplayTag Attributes_Resistance_Physical;
-
 	//经验
 	FGameplayTag Attributes_Meta_IncomingXP;
 
@@ -58,6 +52,7 @@ public:
 
 	FGameplayTag Damage;
 
+	//伤害类型
 	//火焰伤害类型
 	FGameplayTag Damage_Fire;
 	//闪电伤害类型
@@ -66,6 +61,18 @@ public:
 	FGameplayTag Damage_Arcane;
 	//物理伤害类型
 	FGameplayTag Damage_Physical;
+
+	//抗性
+	FGameplayTag Attributes_Resistance_Fire;
+	FGameplayTag Attributes_Resistance_Lightning;
+	FGameplayTag Attributes_Resistance_Arcane;
+	FGameplayTag Attributes_Resistance_Physical;
+
+	//Debuff
+	FGameplayTag Debuff_Burn;
+	FGameplayTag Debuff_Stun;
+	FGameplayTag Debuff_Arcane;
+	FGameplayTag Debuff_Physical;
 
 	FGameplayTag Abilities_None;
 
@@ -104,6 +111,8 @@ public:
 	
 	//伤害类型和抗性映射关系
 	TMap<FGameplayTag, FGameplayTag> DamageTypesToResistances;
+	//伤害类型对应Debuff标签
+	TMap<FGameplayTag, FGameplayTag> DamageTypesToDebuffs;
 	
 	FGameplayTag Effects_HitReact;
 	
