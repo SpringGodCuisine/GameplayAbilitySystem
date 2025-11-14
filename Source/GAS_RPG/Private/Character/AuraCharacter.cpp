@@ -181,7 +181,10 @@ void AAuraCharacter::InitAbilityActorInfo()
 	// 将 Attribute Set 指向 AuraPlayerState 的 Attribute Set
 	AttributeSet = AuraPlayerState->GetAttributeSet();
 
-	//客户端中只有自己的Controller才会Vaild
+	// 当ASC有效时广播
+	OnASCRegistered.Broadcast(AbilitySystemComponent);
+	
+	// 客户端中只有自己的Controller才会Vaild
 	if(AAuraPlayerController* AuraPlayerController = Cast<AAuraPlayerController>(GetController()))
 	{
 		// 只有在客户端中，并且当前控制器为玩家自己的控制器时才会有效

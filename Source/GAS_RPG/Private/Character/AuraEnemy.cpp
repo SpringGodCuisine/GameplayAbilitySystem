@@ -20,7 +20,7 @@ AAuraEnemy::AAuraEnemy()
 {
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 
-	//只有Enemy构造函数里才生效，Character构造里不生效
+	// 只有Enemy构造函数里才生效，Character构造里不生效
 	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
@@ -40,7 +40,7 @@ void AAuraEnemy::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	//AI只在服务器端有效
+	// AI只在服务器端有效
 	if (!HasAuthority())return;
 	AuraAIController = Cast<AAuraAIController>(NewController);
 	
@@ -98,9 +98,9 @@ void AAuraEnemy::BeginPlay()
 	Super::BeginPlay();
 	GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
 	
-	//AbilitySystemComponent在此时初始化完成
+	// AbilitySystemComponent在此时初始化完成
 	InitAbilityActorInfo();
-	//判断服务器中运行, 能力系统不应该在客户端初始化
+	// 判断服务器中运行, 能力系统不应该在客户端初始化
 	if (HasAuthority())
 	{
 		UAuraAbilitySystemLibrary::GiveStartupAbilities(this, AbilitySystemComponent, CharacterClass);
@@ -130,7 +130,7 @@ void AAuraEnemy::BeginPlay()
 			&AAuraEnemy::HitReactTagChanged
 		);
 		
-		//初始值广播
+		// 初始值广播
 		OnHealthChanged.Broadcast(AuraAS->GetHealth());
 		OnMaxHealthChanged.Broadcast(AuraAS->GetMaxHealth());
 	}
@@ -142,20 +142,22 @@ void AAuraEnemy::HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCou
 	GetCharacterMovement()->MaxWalkSpeed = bHitReacting? 0.f : BaseWalkSpeed;
 	if (AuraAIController && AuraAIController->GetBlackboardComponent())
 	{
-		//AIController在客户端上是无效的，只在服务器上有效
+		// AIController在客户端上是无效的，只在服务器上有效
 		AuraAIController->GetBlackboardComponent()->SetValueAsBool(FName("HitReacting"), bHitReacting);
 	}
 }
 
 void AAuraEnemy::InitAbilityActorInfo()
 {
-	//设置OwnerActor和AvatarActor
+	// 设置OwnerActor和AvatarActor
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 	if (HasAuthority())
 	{
 		InitializeDefaultAttributes();
 	}
+	// 当ASC有效时广播
+	OnASCRegistered.Broadcast(AbilitySystemComponent);
 }
 
 void AAuraEnemy::InitializeDefaultAttributes() const
