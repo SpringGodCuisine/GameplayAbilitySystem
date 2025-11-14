@@ -3,6 +3,54 @@
 #include "GameplayEffectTypes.h"
 #include "AuraAbilityTypes.generated.h"
 
+class UGameplayEffect;
+
+USTRUCT(BlueprintType)
+struct FDamageEffectParams
+{
+	GENERATED_BODY()
+
+	FDamageEffectParams() {}
+
+	UPROPERTY()
+	TObjectPtr<UObject> WordContextObject = nullptr;
+
+	UPROPERTY()
+	TSubclassOf<UGameplayEffect> DamageGameplayEffectClass = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UAbilitySystemComponent> SourceAbilitySystemComponent;
+
+	UPROPERTY()
+	TObjectPtr<UAbilitySystemComponent> TargetAbilitySystemComponent;
+
+	UPROPERTY()
+	float BaseDamage = 0.f;
+
+	UPROPERTY()
+	float AbilityLevel = 1.f;
+
+	UPROPERTY()
+	FGameplayTag DamageType = FGameplayTag();
+
+	// 触发几率
+	UPROPERTY()
+	float DebuffChance = 0.f;
+
+	// 伤害
+	UPROPERTY()
+	float DebuffDamage = 0.f;
+
+	// 持续时间
+	UPROPERTY()
+	float DebuffDuration = 0.f;
+
+	// 触发频率
+	UPROPERTY()
+	float DebuffFrequency = 0.f;
+};
+
+
 //自定义序列化类
 USTRUCT(BlueprintType)
 struct FAuraGameplayEffectContext : public FGameplayEffectContext
