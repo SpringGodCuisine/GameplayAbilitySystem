@@ -26,7 +26,7 @@ public:
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 	/* Combat Interface */
-	virtual void Die() override;
+	virtual void Die(const FVector& DeathImpulse) override;
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
 	virtual FVector GetCombatSocketLocation_Implementation(const FGameplayTag& MontageTag) override;
 	virtual bool IsDead_Implementation() const override;
@@ -46,7 +46,7 @@ public:
 
 	// 当服务器调用这个函数时，服务器和所有客户端都会执行它
 	UFUNCTION(NetMulticast, reliable)
-	virtual void MulticastHandleDeath();
+	virtual void MulticastHandleDeath(const FVector& DeathImpulse);
 
 	// 攻击蒙太奇
 	UPROPERTY(EditAnywhere, Category = Combat)
