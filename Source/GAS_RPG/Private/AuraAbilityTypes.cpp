@@ -67,9 +67,13 @@ bool FAuraGameplayEffectContext::NetSerialize(FArchive& Ar, class UPackageMap* M
 		{
 			RepBits |= 1 << 14;
 		}
+		if (!KnockbackForce.IsZero())
+		{
+			RepBits |= 1 << 15;
+		}
 	}
 
-	Ar.SerializeBits(&RepBits, 14);
+	Ar.SerializeBits(&RepBits, 15);
 
 	if (RepBits & (1 << 0))
 	{
@@ -151,6 +155,11 @@ bool FAuraGameplayEffectContext::NetSerialize(FArchive& Ar, class UPackageMap* M
 	{
 		// FVector自带序列化能力
 		DeathImpulse.NetSerialize(Ar, Map, bOutSuccess);
+	}
+	if (RepBits & (1 << 15))
+	{
+		// 击退力
+		KnockbackForce.NetSerialize(Ar, Map, bOutSuccess);
 	}
 	
 	if (Ar.IsLoading())
