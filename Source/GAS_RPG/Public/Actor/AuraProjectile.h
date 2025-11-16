@@ -25,6 +25,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, meta = (ExposeOnSpawn = true /*生成时暴露引脚给蓝图*/))
 	FDamageEffectParams DamageEffectParams;
 
+	UPROPERTY()
+	TObjectPtr<USceneComponent> HomingTargetSceneComponent;
+	
 protected:
 	virtual void BeginPlay() override;
 	void OnHit();
