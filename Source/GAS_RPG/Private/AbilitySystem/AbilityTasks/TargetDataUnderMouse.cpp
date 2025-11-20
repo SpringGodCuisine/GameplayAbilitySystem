@@ -3,6 +3,7 @@
 
 #include "AbilitySystem/AbilityTasks/TargetDataUnderMouse.h"
 #include "AbilitySystemComponent.h"
+#include "GAS_RPG/GAS_RPG.h"
 
 UTargetDataUnderMouse* UTargetDataUnderMouse::CreateTargetDataUnderMouse(UGameplayAbility* OwningAbility)
 {
@@ -51,7 +52,7 @@ void UTargetDataUnderMouse::SendMouseCursorData()
 	FHitResult CursorHit;
 
 	FGameplayAbilityTargetDataHandle DataHandle;
-	PC->GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
+	PC->GetHitResultUnderCursor(ECC_Target, false, CursorHit);
 	Data->HitResult = CursorHit;
 	DataHandle.Add(Data);
 
