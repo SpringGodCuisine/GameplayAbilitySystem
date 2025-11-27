@@ -15,6 +15,7 @@
 AAuraProjectile::AAuraProjectile()
 {
 	PrimaryActorTick.bCanEverTick = false;
+	bReplicates = true;
 
 	Sphere = CreateDefaultSubobject<USphereComponent>("Sphere");
 	SetRootComponent(Sphere);
@@ -69,6 +70,7 @@ void AAuraProjectile::Destroyed()
 void AAuraProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 									  UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	if (DamageEffectParams.SourceAbilitySystemComponent == nullptr) return;
 	// 效果引发者
 	AActor* SourceAvatarActor = DamageEffectParams.SourceAbilitySystemComponent->GetAvatarActor();
 	if (SourceAvatarActor == OtherActor) return;
