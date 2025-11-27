@@ -27,9 +27,10 @@ public:
 
 	/* Combat Interface */
 	virtual void Die(const FVector& DeathImpulse) override;
+	virtual FOnDeathSignature& GetOnDeathDelegate() override;
+	virtual bool IsDead_Implementation() const override;
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
 	virtual FVector GetCombatSocketLocation_Implementation(const FGameplayTag& MontageTag) override;
-	virtual bool IsDead_Implementation() const override;
 	virtual AActor* GetAvatar_Implementation() override;
 	virtual TArray<FTaggedMontage> GetAttackMontages_Implementation() override;
 	virtual UNiagaraSystem* GetBloodEffect_Implementation() override;
@@ -38,12 +39,11 @@ public:
 	virtual void IncrementMinionCount_Implementation(int32 Amount) override;
 	virtual ECharacterClass GetCharacterClass_Implementation() override;
 	virtual FOnASCRegistered GetOnASCRegisteredDelegate() override;
-	virtual FOnDeath GetOnDeathDelegate() override;
 	virtual USkeletalMeshComponent* GetWeapon_Implementation() override;
 	/* end combat Interface */
 
 	FOnASCRegistered OnASCRegistered;
-	FOnDeath OnDeath;
+	FOnDeathSignature OnDeathDelegate;
 
 	// 当服务器调用这个函数时，服务器和所有客户端都会执行它
 	UFUNCTION(NetMulticast, reliable)
