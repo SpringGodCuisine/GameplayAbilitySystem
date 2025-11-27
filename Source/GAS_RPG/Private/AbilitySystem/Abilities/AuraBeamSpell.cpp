@@ -27,8 +27,6 @@ void UAuraBeamSpell::StoreOwnerVariables()
 		OwnerPlayerController = CurrentActorInfo->PlayerController.Get();
 		OwnerCharacter = Cast<ACharacter>(CurrentActorInfo->AvatarActor);
 	}
-	
-	
 }
 
 void UAuraBeamSpell::TraceFirstTarget(const FVector& BeamTargetLocation)

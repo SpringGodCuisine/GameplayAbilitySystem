@@ -34,8 +34,11 @@ public:
 	void AddCharacterPassiveAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupPassiveAbilities);
 	bool bStartupAbilitiesGiven = false;
 
+	// 按下
 	void AbilityInputTagPressed(const FGameplayTag& InputTag);
+	// 按住
 	void AbilityInputTagHeld(const FGameplayTag& InputTag);
+	// 抬起
 	void AbilityInputTagReleased(const FGameplayTag& InputTag);
 	void ForEachAbility(const FForEachAbility& Delegate);
 
