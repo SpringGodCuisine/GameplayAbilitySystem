@@ -219,10 +219,18 @@ void UAuraAttributeSet::Debuff(const FEffectProperties& Props)
 	Effect->DurationPolicy = EGameplayEffectDurationType::HasDuration;
 	Effect->Period = DebuffFrequency;
 	Effect->DurationMagnitude = FScalableFloat(DebuffDuration);
-	
+
+	const FGameplayTag DebuffTag = GameplayTags.DamageTypesToDebuffs[DamageType];;
 	UTargetTagsGameplayEffectComponent& TargetTagsGameplayEffectComponent = Effect->AddComponent<UTargetTagsGameplayEffectComponent>();
 	FInheritedTagContainer InheritableOwnedTagsContainer; //创建组件所需的标签容器
-	InheritableOwnedTagsContainer.Added.AddTag(GameplayTags.DamageTypesToDebuffs[DamageType]); //添加标签
+	InheritableOwnedTagsContainer.Added.AddTag(DebuffTag); //添加标签
+	if (DebuffTag.MatchesTagExact(FAuraGameplayTags::Get().Debuff_Stun))
+	{
+		InheritableOwnedTagsContainer.Added.AddTag(GameplayTags.Player_Block_CursorTrace);
+		InheritableOwnedTagsContainer.Added.AddTag(GameplayTags.Player_Block_InputHeld);
+		InheritableOwnedTagsContainer.Added.AddTag(GameplayTags.Player_Block_InputPressed);
+		InheritableOwnedTagsContainer.Added.AddTag(GameplayTags.Player_Block_InputReleased);
+	}
 	TargetTagsGameplayEffectComponent.SetAndApplyTargetTagChanges(InheritableOwnedTagsContainer); //应用并更新
 
 	Effect->StackingType = EGameplayEffectStackingType::AggregateBySource;

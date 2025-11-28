@@ -4,6 +4,7 @@
 #include "Character/AuraCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "AuraGameplayTags.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/Data/LevelUpInfo.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -164,34 +165,48 @@ int32 AAuraCharacter::GetPlayerLevel_Implementation()
 	const AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
 	check(AuraPlayerState);
 	return AuraPlayerState->GetPlayerLevel();
-} 
+}
+
+void AAuraCharacter::OnRep_Stunned()
+{
+	if (UAuraAbilitySystemComponent* AuraASC =  Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent))
+	{
+		const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::Get();
+		FGameplayTagContainer BlockedTags;
+		BlockedTags.AddTag(GameplayTags.Player_Block_CursorTrace);
+		BlockedTags.AddTag(GameplayTags.Player_Block_InputHeld);
+		BlockedTags.AddTag(GameplayTags.Player_Block_InputPressed);
+		BlockedTags.AddTag(GameplayTags.Player_Block_InputReleased);
+
+		if (bIsStunned)
+		{
+			AuraASC->AddLooseGameplayTags(BlockedTags);
+		}
+		else
+		{
+			AuraASC->RemoveLooseGameplayTags(BlockedTags);
+		}
+	}
+}
 
 void AAuraCharacter::InitAbilityActorInfo()
 {
-	// 获取当前玩家的状态，并强制转换为 AAuraPlayerState 类型
+	
 	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
-	// 检查 AuraPlayerState 是否有效（非空），如果无效则会导致程序崩溃
 	check(AuraPlayerState);
-	// 初始化 Ability System Component，将其与 AuraPlayerState 和当前对象（this）关联
 	AuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(AuraPlayerState, this);
 
 	Cast<UAuraAbilitySystemComponent>(AuraPlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet();
-	// 将 Ability System Component 指向 AuraPlayerState 的 Ability System Component
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
-	// 将 Attribute Set 指向 AuraPlayerState 的 Attribute Set
 	AttributeSet = AuraPlayerState->GetAttributeSet();
-
-	// 当ASC有效时广播
 	OnASCRegistered.Broadcast(AbilitySystemComponent);
+	AbilitySystemComponent->RegisterGameplayTagEvent(FAuraGameplayTags::Get().Debuff_Stun, EGameplayTagEventType::NewOrRemoved)
+		.AddUObject(this, &AAuraCharacter::StunTagChanged);
 	
-	// 客户端中只有自己的Controller才会Vaild
 	if(AAuraPlayerController* AuraPlayerController = Cast<AAuraPlayerController>(GetController()))
 	{
-		// 只有在客户端中，并且当前控制器为玩家自己的控制器时才会有效
-		// 获取当前控制器的 HUD 并强制转换为 AAuraHUD 类型
 		if(AAuraHUD* AuraHUD = Cast<AAuraHUD>(AuraPlayerController->GetHUD()))
 		{
-			// 初始化 HUD 的 Overlay，将其与当前控制器、玩家状态、Ability System Component 和 Attribute Set 关联
 			AuraHUD->InitOverlay(AuraPlayerController, AuraPlayerState, AbilitySystemComponent, AttributeSet);
 		}
 	}
